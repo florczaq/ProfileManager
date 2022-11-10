@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 
@@ -20,17 +22,3 @@ public:
   void deleteFile(int index);
 };
 
-Profile::Profile(string name)
-{
-  this->name = name;
-}
-
-string Profile::getName()
-{
-  return name;
-}
-
-vector<string> Profile::getFilesList()
-{
-  return paths;
-}
