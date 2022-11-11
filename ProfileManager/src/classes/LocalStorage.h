@@ -9,11 +9,11 @@ using json = nlohmann::json;
 
 class LocalStorage
 {
-private:
+protected:
   json j;
-  const string filepath = "../../../data/data.json";
+  const string filepath = "data/data.json";
 public:
   LocalStorage();
-  auto readData(string key);
+  json readData(string key);
   void saveData(string key, auto data);
 };

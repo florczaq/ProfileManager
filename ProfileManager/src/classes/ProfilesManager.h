@@ -4,7 +4,9 @@
 #include <vector>
 #include "../libraries/CLI11.hpp"
 
+// #include "data/Descriptions.hpp"
 #include "../../data/Descriptions.hpp"
+#include "ProfilesStorage.h"
 #include "Profile.h"
 
 using std::cout, std::endl, std::vector;
@@ -13,7 +15,6 @@ class ProfilesManager
 {
 private:
   vector<Profile> profiles;
-
 public:
   ProfilesManager();
   vector<Profile> getProfiles();

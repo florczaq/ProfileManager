@@ -1,1 +1,7 @@
-{"Profiles":"[]","test":"testToJest"}
+{
+	"Profiles": [
+		{ "name": "Profile 1", "paths": ["Path1", "path2", "path3"] },
+		{ "name": "Profile 2", "paths": ["PathX", "pathY", "pathZ"] }
+	],
+	"test": "testToJest"
+}

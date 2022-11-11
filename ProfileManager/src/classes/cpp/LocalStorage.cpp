@@ -5,6 +5,7 @@ LocalStorage::LocalStorage()
   ifstream file(this->filepath);
   if (!file.good())
   {
+    std::cout << "File: data.json not found at " << filepath << std::endl;
     file.close();
     ofstream file(this->filepath);
     j["Profiles"] = "[]";
@@ -16,8 +17,7 @@ LocalStorage::LocalStorage()
   file.close();
 }
 
-
-auto LocalStorage::readData(string key)
+json LocalStorage::readData(string key)
 {
   return j[key];
 }
@@ -28,11 +28,4 @@ void LocalStorage::saveData(string key, auto data)
   j[key] = data;
   file << j;
   file.close();
-}
-
-int main()
-{
-  LocalStorage localStorage;
-  localStorage.saveData("test", "testToJest");
-  std::cout << localStorage.readData("test") ;
 }

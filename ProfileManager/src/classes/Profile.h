@@ -13,6 +13,7 @@ private:
 
 public:
   Profile(string name);
+  Profile(string name, vector<string> paths);
 
   string getName();
   vector<string> getFilesList();
@@ -21,4 +22,3 @@ public:
   void addFile(string newFilePath);
   void deleteFile(int index);
 };
-
