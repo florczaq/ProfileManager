@@ -13,3 +13,7 @@ vector<Profile> ProfilesManager::getProfiles()
 void ProfilesManager::addProfile(string name){
   profilesStorage.addNewProfile(name);
 }
+
+void ProfilesManager::deleteProfile(int index){
+  profilesStorage.deleteProfile(index);
+}

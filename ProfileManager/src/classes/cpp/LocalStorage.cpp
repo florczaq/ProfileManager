@@ -31,18 +31,33 @@ void LocalStorage::saveData()
 
 void LocalStorage::saveNewProfile(string newProfileName)
 {
-  vector<json> currentProfileList;
+  vector<json> profilesList;
 
-  int i = 0;
   for (auto &p : j["Profiles"].items())
   {
     json element = p.value();
-    currentProfileList.push_back(json::object({{"name", element.at("name")}, {"paths", element.at("paths")}}));
-    i++;
+    profilesList.push_back(json::object({{"name", element.at("name")}, {"paths", element.at("paths")}}));
   }
   json object = json::object({{"name", newProfileName}, {"paths", json::array()}});
 
-  currentProfileList.push_back(object);
-  j["Profiles"] = currentProfileList;
+  profilesList.push_back(object);
+  j["Profiles"] = profilesList;
+  saveData();
+}
+
+void LocalStorage::deleteProfile(int index)
+{
+  vector<json> profilesList;
+  int i = 0;
+  for (auto &p : j["Profiles"].items())
+  {
+    if (i + 1 != index)
+    {
+      json element = p.value();
+      profilesList.push_back(json::object({{"name", element.at("name")}, {"paths", element.at("paths")}}));
+    }
+    i++;
+  }
+  j["Profiles"] = profilesList;
   saveData();
 }

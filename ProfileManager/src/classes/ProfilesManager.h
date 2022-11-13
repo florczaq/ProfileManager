@@ -20,8 +20,8 @@ public:
   ProfilesManager();
 
   void addProfile(string name);
-  
   vector<Profile> getProfiles();
+  void deleteProfile(int index);
 };
 
 // https: // cliutils.github.io/CLI11/book/chapters/an-advanced-example.html

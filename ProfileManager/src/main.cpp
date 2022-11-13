@@ -28,23 +28,24 @@ int main(int argc, char const *argv[])
   app.set_help_flag("--help", "Show list of basic flags and options.");
   app.set_help_all_flag("--help-all", "Show list of all flags and options.");
 
-  auto profiles = app.add_subcommand("profiles", descriptions.ProfilesSubcommand);
-
-  auto callback = [&](int count)
-  { writeAllProfiles(profilesManager.getProfiles()); };
-  profiles->add_flag_function("-l, --list", callback, "Return list of created profiles");
-
-  string profileName = "";
-  profiles->add_option("-n, --name", profileName, "Choose profiles by name");
+  app.add_flag_function(
+      "-l, --list", [&](int count)
+      { writeAllProfiles(profilesManager.getProfiles()); },
+      "Return list of created profiles");
 
   string newProfileName = "";
-  profiles->add_option("-a, --add", newProfileName, "Add new Profile");
+  app.add_option("-a, --add", newProfileName, "Add new Profile");
+
+  int deleteProfileIndex = -1;
+  app.add_option("--delete-id", deleteProfileIndex, "Delete profile by id.");
 
   CLI11_PARSE(app, argc, argv);
 
   if (!newProfileName.empty())
-  {
     profilesManager.addProfile(newProfileName);
-  }
+
+  if (deleteProfileIndex != -1)
+    profilesManager.deleteProfile(deleteProfileIndex);
+
   return 0;
 }

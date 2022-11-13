@@ -1,7 +1,1 @@
-{
-	"Profiles": [
-		{ "name": "a", "paths": [] },
-		{ "name": "new", "paths": [] },
-		{ "name": "inny", "paths": [] }
-	]
-}
+{"Profiles":[{"name":"new1","paths":[]},{"name":"new3","paths":[]}]}

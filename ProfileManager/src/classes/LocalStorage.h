@@ -20,4 +20,6 @@ public:
   json readData(string key);
   void saveData();
   void saveNewProfile(string newProfileName);
+  void deleteProfile(string name);
+  void deleteProfile(int index);
 };
