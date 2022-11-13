@@ -11,6 +11,11 @@ using std::cout, std::endl, std::vector;
 
 void writeAllProfiles(vector<Profile> profiles)
 {
+  if (profiles.size() == 0)
+  {
+    cout << "You have no profiles created yet.";
+    return;
+  }
   for (int i = 0; i < profiles.size(); i++)
     cout << i + 1 << ". " << profiles[i].getName() << endl;
 }
@@ -29,7 +34,17 @@ int main(int argc, char const *argv[])
   { writeAllProfiles(profilesManager.getProfiles()); };
   profiles->add_flag_function("-l, --list", callback, "Return list of created profiles");
 
+  string profileName = "";
+  profiles->add_option("-n, --name", profileName, "Choose profiles by name");
+
+  string newProfileName = "";
+  profiles->add_option("-a, --add", newProfileName, "Add new Profile");
 
   CLI11_PARSE(app, argc, argv);
+
+  if (!newProfileName.empty())
+  {
+    profilesManager.addProfile(newProfileName);
+  }
   return 0;
 }

@@ -1,10 +1,13 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include "../libraries/json.hpp"
 
-using std::string, std::ifstream, std::ofstream;
+#include "Profile.h"
+
+using std::string, std::ifstream, std::ofstream, std::vector, std::to_string;
 using json = nlohmann::json;
 
 class LocalStorage
@@ -15,5 +18,6 @@ protected:
 public:
   LocalStorage();
   json readData(string key);
-  void saveData(string key, auto data);
+  void saveData();
+  void saveNewProfile(string newProfileName);
 };

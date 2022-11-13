@@ -14,3 +14,7 @@ vector<Profile> ProfilesStorage::getProfilesList()
   }
   return profiles;
 }
+
+void ProfilesStorage::addNewProfile(string name){
+  LocalStorage::saveNewProfile(name);
+}

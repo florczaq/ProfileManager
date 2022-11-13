@@ -15,13 +15,13 @@ class ProfilesManager
 {
 private:
   vector<Profile> profiles;
+  ProfilesStorage profilesStorage;
 public:
   ProfilesManager();
+
+  void addProfile(string name);
+  
   vector<Profile> getProfiles();
 };
 
-
-
-
 // https: // cliutils.github.io/CLI11/book/chapters/an-advanced-example.html
-// app.add_option("-af, --add-file", file, "File name")->check(CLI::ExistingFile);

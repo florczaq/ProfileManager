@@ -15,4 +15,5 @@ class ProfilesStorage : public LocalStorage
 private:
 public:
   vector<Profile> getProfilesList();
+  void addNewProfile(string name);
 };

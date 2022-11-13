@@ -1,7 +1,7 @@
 {
 	"Profiles": [
-		{ "name": "Profile 1", "paths": ["Path1", "path2", "path3"] },
-		{ "name": "Profile 2", "paths": ["PathX", "pathY", "pathZ"] }
-	],
-	"test": "testToJest"
+		{ "name": "a", "paths": [] },
+		{ "name": "new", "paths": [] },
+		{ "name": "inny", "paths": [] }
+	]
 }
