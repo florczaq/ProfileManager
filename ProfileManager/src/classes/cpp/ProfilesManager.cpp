@@ -2,7 +2,7 @@
 
 ProfilesManager::ProfilesManager()
 {
-  this->profiles = profilesStorage.getProfilesList();
+  this->profiles = LocalStorage::getProifilesList();
 }
 
 vector<Profile> ProfilesManager::getProfiles()
@@ -10,10 +10,12 @@ vector<Profile> ProfilesManager::getProfiles()
   return profiles;
 }
 
-void ProfilesManager::addProfile(string name){
-  profilesStorage.addNewProfile(name);
+void ProfilesManager::addProfile(string name)
+{
+  LocalStorage::saveNewProfile(name);
 }
 
-void ProfilesManager::deleteProfile(int index){
-  profilesStorage.deleteProfile(index);
+void ProfilesManager::deleteProfile(int index)
+{
+  LocalStorage::deleteProfile(index);
 }

@@ -12,13 +12,17 @@ using json = nlohmann::json;
 
 class LocalStorage
 {
-protected:
-  json j;
+private:
   const string filepath = "data/data.json";
-public:
-  LocalStorage();
+  json j;
   json readData(string key);
   void saveData();
+
+public:
+  LocalStorage();
+
+  vector<Profile> getProifilesList();
+
   void saveNewProfile(string newProfileName);
   void deleteProfile(string name);
   void deleteProfile(int index);

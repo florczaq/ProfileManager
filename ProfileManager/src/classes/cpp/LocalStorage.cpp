@@ -8,7 +8,7 @@ LocalStorage::LocalStorage()
     std::cout << "File: data.json not found at " << filepath << std::endl;
     file.close();
     ofstream file(this->filepath);
-    j["Profiles"] = "[]";
+    j["Profiles"] = json::array();
     file << j;
     file.close();
     return;
@@ -60,4 +60,19 @@ void LocalStorage::deleteProfile(int index)
   }
   j["Profiles"] = profilesList;
   saveData();
+}
+
+vector<Profile> LocalStorage::getProifilesList()
+{
+  json result = readData("Profiles");
+  vector<Profile> profiles;
+  for (auto &element : result.items())
+  {
+    json object = element.value();
+    profiles.push_back(
+        Profile(
+            object.at("name").get<string>(),
+            object.at("paths").get<vector<string>>()));
+  }
+  return profiles;
 }

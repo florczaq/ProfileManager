@@ -4,18 +4,16 @@
 #include <vector>
 #include "../libraries/CLI11.hpp"
 
-// #include "data/Descriptions.hpp"
 #include "../../data/Descriptions.hpp"
-#include "ProfilesStorage.h"
 #include "Profile.h"
+#include "LocalStorage.h"
 
 using std::cout, std::endl, std::vector;
 
-class ProfilesManager
+class ProfilesManager : public LocalStorage
 {
 private:
   vector<Profile> profiles;
-  ProfilesStorage profilesStorage;
 public:
   ProfilesManager();
 
