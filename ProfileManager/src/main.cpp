@@ -9,43 +9,46 @@
 
 using std::cout, std::endl, std::vector;
 
-void writeAllProfiles(vector<Profile> profiles)
+class Application
 {
-  if (profiles.size() == 0)
+private:
+  Descriptions descriptions;
+  ProfilesManager profilesManager;
+
+  string newProfileName = "";
+  int deleteProfileIndex = -1;
+
+public:
+  CLI::App app;
+
+  Application()
   {
-    cout << "You have no profiles created yet.";
-    return;
+    app.description(descriptions.AppDescription);
+    app.set_help_flag("--help", "Show list of basic flags and options.");
+    app.set_help_all_flag("--help-all", "Show list of all flags and options.");
+    app.add_option("-a, --add", newProfileName, "Add new Profile");
+    app.add_option("--di,--delete-id", deleteProfileIndex, "Delete profile by id.");
+    app.add_flag_function(
+        "-l, --list", [&](int i)
+        { profilesManager.writeAllProfiles(); },
+        "Return list of created profiles");
   }
-  for (int i = 0; i < profiles.size(); i++)
-    cout << i + 1 << ". " << profiles[i].getName() << endl;
-}
+
+  void run()
+  {
+    if (!newProfileName.empty())
+      profilesManager.addProfile(newProfileName);
+
+    if (deleteProfileIndex != -1)
+      profilesManager.deleteProfile(deleteProfileIndex);
+  }
+};
 
 int main(int argc, char const *argv[])
 {
-  Descriptions descriptions;
-  ProfilesManager profilesManager;
-  CLI::App app(descriptions.AppDescription);
-  app.set_help_flag("--help", "Show list of basic flags and options.");
-  app.set_help_all_flag("--help-all", "Show list of all flags and options.");
-
-  app.add_flag_function(
-      "-l, --list", [&](int count)
-      { writeAllProfiles(profilesManager.getProfiles()); },
-      "Return list of created profiles");
-
-  string newProfileName = "";
-  app.add_option("-a, --add", newProfileName, "Add new Profile");
-
-  int deleteProfileIndex = -1;
-  app.add_option("--delete-id", deleteProfileIndex, "Delete profile by id.");
-
-  CLI11_PARSE(app, argc, argv);
-
-  if (!newProfileName.empty())
-    profilesManager.addProfile(newProfileName);
-
-  if (deleteProfileIndex != -1)
-    profilesManager.deleteProfile(deleteProfileIndex);
+  Application application;
+  CLI11_PARSE(application.app, argc, argv);
+  application.run();
 
   return 0;
 }

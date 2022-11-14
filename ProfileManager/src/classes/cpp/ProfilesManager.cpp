@@ -12,10 +12,29 @@ vector<Profile> ProfilesManager::getProfiles()
 
 void ProfilesManager::addProfile(string name)
 {
-  LocalStorage::saveNewProfile(name);
+  for (auto p : profiles)
+    if (p.getName() == name)
+    {
+      std::cout << "You alredy have profile with that name. \nTry again with different name." << std::endl;
+      return;
+    }
+  LocalStorage::addNewProfile(name);
 }
 
 void ProfilesManager::deleteProfile(int index)
 {
   LocalStorage::deleteProfile(index);
+}
+
+void ProfilesManager::writeAllProfiles()
+{
+  if (profiles.size() == 0)
+  {
+    cout << "You have no profiles created yet.\n";
+    return;
+  }
+
+  cout << "Profiles:   \n";
+  for (int i = 0; i < profiles.size(); i++)
+    cout << "  " << i + 1 << ". " << profiles[i].getName() << endl;
 }

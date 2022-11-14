@@ -29,7 +29,7 @@ void LocalStorage::saveData()
   file.close();
 }
 
-void LocalStorage::saveNewProfile(string newProfileName)
+void LocalStorage::addNewProfile(string newProfileName)
 {
   vector<json> profilesList;
 

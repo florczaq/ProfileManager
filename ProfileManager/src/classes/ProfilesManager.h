@@ -17,9 +17,11 @@ private:
 public:
   ProfilesManager();
 
+  void writeAllProfiles();
   void addProfile(string name);
-  vector<Profile> getProfiles();
   void deleteProfile(int index);
+  
+  vector<Profile> getProfiles();
 };
 
 // https: // cliutils.github.io/CLI11/book/chapters/an-advanced-example.html

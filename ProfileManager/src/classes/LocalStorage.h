@@ -23,7 +23,7 @@ public:
 
   vector<Profile> getProifilesList();
 
-  void saveNewProfile(string newProfileName);
+  void addNewProfile(string newProfileName);
   void deleteProfile(string name);
   void deleteProfile(int index);
 };
