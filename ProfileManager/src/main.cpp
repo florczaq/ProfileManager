@@ -9,14 +9,14 @@
 
 using std::cout, std::endl, std::vector;
 
-class Application
+class Application : public ProfilesManager
 {
 private:
   Descriptions descriptions;
-  ProfilesManager profilesManager;
 
   string newProfileName = "";
   int deleteProfileIndex = -1;
+  string deleteProfileName = "";
 
 public:
   CLI::App app;
@@ -30,17 +30,21 @@ public:
     app.add_option("--di,--delete-id", deleteProfileIndex, "Delete profile by id.");
     app.add_flag_function(
         "-l, --list", [&](int i)
-        { profilesManager.writeAllProfiles(); },
+        { ProfilesManager::writeAllProfiles(); },
         "Return list of created profiles");
+    app.add_option("-d,--delete", deleteProfileName, "Delete profile by name");
   }
 
   void run()
   {
     if (!newProfileName.empty())
-      profilesManager.addProfile(newProfileName);
+      ProfilesManager::addNewProfile(newProfileName);
 
     if (deleteProfileIndex != -1)
-      profilesManager.deleteProfile(deleteProfileIndex);
+      ProfilesManager::deleteProfile(deleteProfileIndex);
+
+    if (!deleteProfileName.empty())
+      ProfilesManager::deleteProfile(deleteProfileName);
   }
 };
 

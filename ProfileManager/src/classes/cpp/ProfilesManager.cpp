@@ -38,3 +38,13 @@ void ProfilesManager::writeAllProfiles()
   for (int i = 0; i < profiles.size(); i++)
     cout << "  " << i + 1 << ". " << profiles[i].getName() << endl;
 }
+
+void ProfilesManager::deleteProfile(string name)
+{
+  string answear = "";
+  cout << "Are you sure you want to delete this profile (y/n): " << name << endl;
+  cout << ">> ";
+  cin >> answear;
+  if (answear[0] == 'y' || answear[0] == 'Y')
+    LocalStorage::deleteProfile(name);
+}

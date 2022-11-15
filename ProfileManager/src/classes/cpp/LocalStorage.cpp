@@ -51,11 +51,25 @@ void LocalStorage::deleteProfile(int index)
   int i = 0;
   for (auto &p : j["Profiles"].items())
   {
+    json element = p.value();
     if (i + 1 != index)
-    {
-      json element = p.value();
       profilesList.push_back(json::object({{"name", element.at("name")}, {"paths", element.at("paths")}}));
-    }
+    i++;
+  }
+  j["Profiles"] = profilesList;
+  saveData();
+}
+
+void LocalStorage::deleteProfile(string name)
+{
+  vector<json> profilesList;
+  int i = 0;
+  for (auto &p : j["Profiles"].items())
+  {
+    json element = p.value();
+    if (element.at("name") != name)
+      profilesList.push_back(json::object({{"name", element.at("name")}, {"paths", element.at("paths")}}));
+
     i++;
   }
   j["Profiles"] = profilesList;

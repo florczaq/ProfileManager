@@ -8,7 +8,7 @@
 #include "Profile.h"
 #include "LocalStorage.h"
 
-using std::cout, std::endl, std::vector;
+using std::cout, std::endl, std::vector, std::cin;
 
 class ProfilesManager : public LocalStorage
 {
@@ -20,7 +20,7 @@ public:
   void writeAllProfiles();
   void addProfile(string name);
   void deleteProfile(int index);
-  
+  void deleteProfile(string name);
   vector<Profile> getProfiles();
 };
 
