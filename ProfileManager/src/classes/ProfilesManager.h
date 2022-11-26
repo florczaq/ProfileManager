@@ -16,6 +16,8 @@ class ProfilesManager : public LocalStorage
 private:
   vector<Profile> profiles;
 
+  void renameProfile(int index);
+
 public:
   ProfilesManager();
 
@@ -29,6 +31,7 @@ public:
   vector<Profile> getProfiles();
   
   int findProfile(string name);
+
 
   void addPathToProfile(int profileIndex, string newPath);
   void writePaths(int index);

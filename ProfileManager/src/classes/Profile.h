@@ -21,6 +21,7 @@ public:
   void changeName(string newName);
   void addFile(string newFilePath);
   void deleteFile(int index);
+  void rename(string newName);
 
   void writePaths();
 };

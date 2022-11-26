@@ -76,6 +76,19 @@ void LocalStorage::deleteProfile(string name)
   saveData();
 }
 
+void LocalStorage::saveChanges(vector<Profile> profiles)
+{
+  vector<json> temp;
+  int i = 0;
+  for (auto &p : j["Profiles"].items())
+  {
+    temp.push_back(json::object({{"name", profiles.at(i).getName()}, {"paths", profiles.at(i).getFilesList()}}));
+    i++;
+  }
+  j["Profiles"] = temp;
+  saveData();
+}
+
 vector<Profile> LocalStorage::getProifilesList()
 {
   json result = readData("Profiles");

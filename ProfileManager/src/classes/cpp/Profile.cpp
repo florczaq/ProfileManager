@@ -28,6 +28,10 @@ void Profile::addFile(string newFilePath)
   this->paths.push_back(newFilePath);
 }
 
+void Profile::rename(string newName){
+  this->name = newName;
+}
+
 void Profile::writePaths()
 {
   cout << "Pahs: \n";
