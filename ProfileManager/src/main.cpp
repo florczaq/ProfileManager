@@ -15,8 +15,9 @@ private:
   Descriptions descriptions;
 
   string newProfileName = "";
-  int deleteProfileIndex = -1;
   string deleteProfileName = "";
+  int deleteProfileIndex = -1;
+  string editProfileName = "";
 
 public:
   CLI::App app;
@@ -26,13 +27,15 @@ public:
     app.description(descriptions.AppDescription);
     app.set_help_flag("--help", "Show list of basic flags and options.");
     app.set_help_all_flag("--help-all", "Show list of all flags and options.");
+
     app.add_option("-a, --add", newProfileName, "Add new Profile");
-    app.add_option("--di,--delete-id", deleteProfileIndex, "Delete profile by id.");
+    app.add_option("-d,--delete", deleteProfileName, "Delete profile by name");
+    app.add_option("-i,--delete-id", deleteProfileIndex, "Delete profile by id.");
+    app.add_option("-e, --edit", editProfileName, "Open profile editor.");
     app.add_flag_function(
         "-l, --list", [&](int i)
         { ProfilesManager::writeAllProfiles(); },
         "Return list of created profiles");
-    app.add_option("-d,--delete", deleteProfileName, "Delete profile by name");
   }
 
   void run()
@@ -45,6 +48,9 @@ public:
 
     if (!deleteProfileName.empty())
       ProfilesManager::deleteProfile(deleteProfileName);
+
+    if (!editProfileName.empty())
+      ProfilesManager::editProfile(editProfileName);
   }
 };
 
