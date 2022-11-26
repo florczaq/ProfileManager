@@ -5,6 +5,7 @@ ProfilesManager::ProfilesManager()
   this->profiles = LocalStorage::getProifilesList();
 }
 
+// Returns list of created profiles
 vector<Profile> ProfilesManager::getProfiles()
 {
   return profiles;
@@ -28,6 +29,7 @@ void ProfilesManager::renameProfile(int index)
   LocalStorage::saveChanges(profiles);
 }
 
+// Add new  profile to the list
 void ProfilesManager::addProfile(string name)
 {
   if (findProfile(name) != -1)
@@ -38,11 +40,30 @@ void ProfilesManager::addProfile(string name)
   LocalStorage::addNewProfile(name);
 }
 
+// Delete profile by index
 void ProfilesManager::deleteProfile(int index)
 {
-  LocalStorage::deleteProfile(index);
+  string answear = "";
+  cout << "Are you sure you want to delete this profile (y/n) \n>> ";
+  cin >> answear;
+
+  if (answear[0] == 'y' || answear[0] == 'Y')
+    LocalStorage::deleteProfile(index);
 }
 
+// Deletes profile by name
+void ProfilesManager::deleteProfile(string name)
+{
+  int index = this->findProfile(name);
+  if (index == -1)
+  {
+    cout << "No profile was found with this name.\n";
+    return;
+  }
+  this->deleteProfile(index);
+}
+
+// Write list of profiles
 void ProfilesManager::writeAllProfiles()
 {
   if (profiles.size() == 0)
@@ -56,16 +77,6 @@ void ProfilesManager::writeAllProfiles()
     cout << "  " << i + 1 << ". " << profiles[i].getName() << endl;
 }
 
-void ProfilesManager::deleteProfile(string name)
-{
-  string answear = "";
-  cout << "Are you sure you want to delete this profile (y/n): " << name << endl;
-  cout << ">> ";
-  cin >> answear;
-  if (answear[0] == 'y' || answear[0] == 'Y')
-    LocalStorage::deleteProfile(name);
-}
-
 void ProfilesManager::addPathToProfile(int profileIndex, string newPath)
 {
   profiles[profileIndex].addFile(newPath);
@@ -77,6 +88,7 @@ void ProfilesManager::writePaths(int index)
   // profiles[index].writePaths();
 }
 
+//Shows edition menu and take user option
 void ProfilesManager::editProfile(string name)
 {
   int profileIndex = findProfile(name);

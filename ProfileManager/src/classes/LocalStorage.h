@@ -18,13 +18,14 @@ private:
   json readData(string key);
   void saveData();
 
+protected: 
+  void addNewProfile(string newProfileName);
+  void deleteProfile(int index);
+  void saveChanges(vector<Profile> newProfilesList);
+
 public:
   LocalStorage();
 
   vector<Profile> getProifilesList();
 
-  void addNewProfile(string newProfileName);
-  void deleteProfile(string name);
-  void deleteProfile(int index);
-  void saveChanges(vector<Profile> newProfilesList);
 };
