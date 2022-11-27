@@ -37,5 +37,3 @@ public:
   void writePaths(int index);
 
 };
-
-// https: // cliutils.github.io/CLI11/book/chapters/an-advanced-example.html

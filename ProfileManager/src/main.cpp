@@ -35,20 +35,18 @@ public:
 		app.add_option("-e, --edit", editProfileName, "Open profile editor.");
 
 		app.add_flag_function(
-			"-l, --list", [&](int i)
-			{ ProfilesManager::writeAllProfiles(); },
-			"Return list of created profiles");
+				"-l, --list", [&](int i)
+				{ ProfilesManager::writeAllProfiles(); },
+				"Return list of created profiles");
 	}
 
 	void run()
 	{
 		if (!newProfileName.empty())
-		{
-			cout << newProfileName << endl;
 			ProfilesManager::addProfile(newProfileName);
-		}
+
 		if (deleteProfileIndex != -1)
-			ProfilesManager::deleteProfile(deleteProfileIndex);
+			ProfilesManager::deleteProfile(deleteProfileIndex - 1);
 
 		if (!deleteProfileName.empty())
 			ProfilesManager::deleteProfile(deleteProfileName);
@@ -63,5 +61,4 @@ int main(int argc, char const *argv[])
 	Application application;
 	CLI11_PARSE(application.app, argc, argv);
 	application.run();
-	return 0;
 }

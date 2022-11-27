@@ -20,6 +20,7 @@ int ProfilesManager::findProfile(string name)
   return -1;
 }
 
+// Renames profile
 void ProfilesManager::renameProfile(int index)
 {
   string newName = "";
@@ -88,7 +89,7 @@ void ProfilesManager::writePaths(int index)
   // profiles[index].writePaths();
 }
 
-//Shows edition menu and take user option
+// Open edition menu 
 void ProfilesManager::editProfile(string name)
 {
   int profileIndex = findProfile(name);
@@ -119,7 +120,7 @@ void ProfilesManager::editProfile(string name)
     renameProfile(profileIndex);
     break;
   case 2:
-    cout << "Delete \n";
+    deleteProfile(profileIndex);
     break;
   case 3:
     cout << "Add more paths \n";

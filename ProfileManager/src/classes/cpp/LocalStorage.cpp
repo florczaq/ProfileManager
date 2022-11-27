@@ -52,7 +52,7 @@ void LocalStorage::deleteProfile(int index)
   for (auto &p : j["Profiles"].items())
   {
     json element = p.value();
-    if (i + 1 != index)
+    if (i != index)
       profilesList.push_back(json::object({{"name", element.at("name")}, {"paths", element.at("paths")}}));
     i++;
   }
