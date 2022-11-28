@@ -1,5 +1,11 @@
 #include "../ProfilesManager.h"
 
+namespace ARROW
+{
+  const int UP = 72;
+  const int DOWN = 80;
+}
+
 ProfilesManager::ProfilesManager()
 {
   this->profiles = LocalStorage::getProifilesList();
@@ -86,49 +92,88 @@ void ProfilesManager::addPathToProfile(int profileIndex, string newPath)
 void ProfilesManager::writePaths(int index)
 {
   cout << index << endl;
+
   // profiles[index].writePaths();
 }
 
-// Open edition menu 
+// Open edition menu
 void ProfilesManager::editProfile(string name)
 {
+  // HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+  // for (int i = 0; i < 255; i++)
+  // {
+  //   SetConsoleTextAttribute(hConsole, i);
+  //   cout << "TEXT " << i << endl;
+  // }
+
   int profileIndex = findProfile(name);
+
   if (profileIndex == -1)
   {
     cout << "You have no profiles with that name. \nCheck your profiles with [-l] flag";
     return;
   }
 
+  char z;
   int option = 0;
-  cout << "Editing [" << name << "]: \n";
-  cout << "+------------------------+\n";
-  cout << "+         Options        +\n";
-  cout << "+------------------------+\n";
-  cout << "| 1) Rename              |\n";
-  cout << "| 2) Delete              |\n";
-  cout << "| 3) Add more paths      |\n";
-  cout << "| 4) Delete some paths   |\n";
-  cout << "| 5) Exit                |\n";
-  cout << "+------------------------+\n";
-  cout << "\n>> ";
-  cin >> option;
-  cout << "\n\n";
+  string menuOptions[5];
+  HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+  menuOptions[0] = "+          Rename        +\n";
+  menuOptions[1] = "+          Delete        +\n";
+  menuOptions[2] = "+      Add more paths    +\n";
+  menuOptions[3] = "+    Delete some paths   +\n";
+  menuOptions[4] = "+           Exit         +\n";
+
+  while (int(z) != 13)
+  {
+    system("cls");
+
+    cout << "Editing [" << name << "]: \n";
+    cout << "+------------------------+\n";
+    cout << "+         Options        +\n";
+    cout << "+------------------------+\n";
+    for (int i = 0; i < 5; i++)
+    {
+      if (i == option)
+        SetConsoleTextAttribute(hConsole, 128);
+      cout << menuOptions[i];
+      SetConsoleTextAttribute(hConsole, 15);
+    }
+    cout << "+------------------------+\n";
+
+    z = _getch();
+
+    switch (z)
+    {
+    case ARROW::UP:
+      if (option > 0)
+        option--;
+      break;
+    case ARROW::DOWN:
+      if (option < 4)
+        option++;
+      break;
+    }
+  }
 
   switch (option)
   {
+  case 0:
+    cout << "Rename\n";
+    // renameProfile(profileIndex);
+    break;
   case 1:
-    renameProfile(profileIndex);
+    cout << "Delete\n";
+
+    // deleteProfile(profileIndex);
     break;
   case 2:
-    deleteProfile(profileIndex);
+    cout << "Add prof.\n";
+    // addPathToProfile(profileIndex, "");
     break;
   case 3:
-    cout << "Add more paths \n";
-    break;
-  case 4:
     cout << "Delete some paths \n";
     break;
-  default:
-    return;
   }
 }
