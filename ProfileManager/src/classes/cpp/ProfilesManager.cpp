@@ -84,6 +84,7 @@ void ProfilesManager::writeAllProfiles()
     cout << "  " << i + 1 << ". " << profiles[i].getName() << endl;
 }
 
+// Add new paths to profile by index
 void ProfilesManager::addPathsToProfile(int profileIndex)
 {
   vector<string> paths;
@@ -108,11 +109,10 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
   LocalStorage::saveChanges(profiles);
 }
 
+// Writes list of paths to a profile specified by index
 void ProfilesManager::writePaths(int index)
 {
-  cout << index << endl;
-
-  // profiles[index].writePaths();
+  profiles[index].writePaths();
 }
 
 // Open edition menu
@@ -128,14 +128,17 @@ void ProfilesManager::editProfile(string name)
 
   char z;
   int option = 0;
-  string menuOptions[5];
+  const int menuSize = 6;
+  string menuOptions[menuSize];
+
   HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
   menuOptions[0] = "+          Rename        +\n";
   menuOptions[1] = "+          Delete        +\n";
   menuOptions[2] = "+      Add more paths    +\n";
   menuOptions[3] = "+    Delete some paths   +\n";
-  menuOptions[4] = "+           Exit         +\n";
+  menuOptions[4] = "+    Show list of paths  +\n";
+  menuOptions[5] = "+           Exit         +\n";
 
   while (int(z) != 13)
   {
@@ -145,7 +148,7 @@ void ProfilesManager::editProfile(string name)
     cout << "+------------------------+\n";
     cout << "+         Options        +\n";
     cout << "+------------------------+\n";
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < menuSize; i++)
     {
       if (i == option)
         SetConsoleTextAttribute(hConsole, 128);
@@ -163,7 +166,7 @@ void ProfilesManager::editProfile(string name)
         option--;
       break;
     case ARROW::DOWN:
-      if (option < 4)
+      if (option < menuSize - 1)
         option++;
       break;
     }
@@ -182,6 +185,9 @@ void ProfilesManager::editProfile(string name)
     break;
   case 3:
     cout << "Delete some paths \n";
+    break;
+  case 4:
+    writePaths(profileIndex);
     break;
   }
 }

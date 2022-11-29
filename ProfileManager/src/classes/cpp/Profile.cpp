@@ -41,7 +41,9 @@ void Profile::addPaths(vector<string> newPaths)
 
 void Profile::writePaths()
 {
-  cout << "Pahs: \n";
-  // for (string p : paths)
-  //   cout << p << endl;
+  cout << "Paths: \n";
+  for (int i = 0; i < paths.size(); i++)
+  {
+    cout << "  " << i + 1 << ": " << paths[i] << endl;
+  }
 }
