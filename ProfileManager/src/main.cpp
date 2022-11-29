@@ -33,7 +33,12 @@ public:
 		app.add_option("-d,--delete", deleteProfileName, "Delete profile by name");
 		app.add_option("-i,--delete-id", deleteProfileIndex, "Delete profile by id.");
 		app.add_option("-e, --edit", editProfileName, "Open profile editor.");
-
+		
+		app.add_flag_callback(
+				"-m, --menu", [&]
+				{ ProfilesManager::interactiveMainMenu(); },
+				"Opens interactive menu.");
+				
 		app.add_flag_function(
 				"-l, --list", [&](int i)
 				{ ProfilesManager::writeAllProfiles(); },

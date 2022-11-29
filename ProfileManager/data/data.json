@@ -1,1 +1,7 @@
-{"Profiles":[{"name":"new","paths":["opera","explorer","safari"]}]}
+{
+	"Profiles": [
+		{ "name": "new1", "paths": ["path1", "path2", "path3", "path4", "path5"] },
+		{ "name": "new12", "paths": [] },
+		{ "name": "new1234", "paths": [] }
+	]
+}
