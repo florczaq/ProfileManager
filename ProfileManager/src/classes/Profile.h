@@ -11,6 +11,7 @@ class Profile
 private:
   string name = "";
   vector<string> paths;
+
 public:
   Profile(string name);
   Profile(string name, vector<string> paths);
@@ -19,7 +20,8 @@ public:
   vector<string> getFilesList();
 
   void changeName(string newName);
-  void addFile(string newFilePath);
+  void addPath(string newFilePath);
+  void addPaths(vector<string> newPaths);
   void deleteFile(int index);
   void rename(string newName);
 

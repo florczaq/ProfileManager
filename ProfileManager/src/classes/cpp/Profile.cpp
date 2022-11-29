@@ -23,13 +23,20 @@ vector<string> Profile::getFilesList()
   return paths;
 }
 
-void Profile::addFile(string newFilePath)
+void Profile::addPath(string newFilePath)
 {
   this->paths.push_back(newFilePath);
 }
 
-void Profile::rename(string newName){
+void Profile::rename(string newName)
+{
   this->name = newName;
+}
+
+void Profile::addPaths(vector<string> newPaths)
+{
+  for (auto p : newPaths)
+    this->paths.push_back(p);
 }
 
 void Profile::writePaths()

@@ -34,6 +34,6 @@ public:
 
   int findProfile(string name);
 
-  void addPathToProfile(int profileIndex, string newPath);
+  void addPathsToProfile(int profileIndex);
   void writePaths(int index);
 };

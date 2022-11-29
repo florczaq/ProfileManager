@@ -84,9 +84,28 @@ void ProfilesManager::writeAllProfiles()
     cout << "  " << i + 1 << ". " << profiles[i].getName() << endl;
 }
 
-void ProfilesManager::addPathToProfile(int profileIndex, string newPath)
+void ProfilesManager::addPathsToProfile(int profileIndex)
 {
-  profiles[profileIndex].addFile(newPath);
+  vector<string> paths;
+  string input;
+  int amount = 0;
+
+  cout << "How many paths: ";
+  cin >> amount;
+
+  system("cls");
+
+  cout << "New paths: \n";
+  for (int i = 1; i <= amount; i++)
+  {
+    cout << " [" << i << "]: ";
+    cin >> input;
+    paths.push_back(input);
+  }
+
+  profiles[profileIndex].addPaths(paths);
+
+  LocalStorage::saveChanges(profiles);
 }
 
 void ProfilesManager::writePaths(int index)
@@ -99,13 +118,6 @@ void ProfilesManager::writePaths(int index)
 // Open edition menu
 void ProfilesManager::editProfile(string name)
 {
-  // HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-  // for (int i = 0; i < 255; i++)
-  // {
-  //   SetConsoleTextAttribute(hConsole, i);
-  //   cout << "TEXT " << i << endl;
-  // }
-
   int profileIndex = findProfile(name);
 
   if (profileIndex == -1)
@@ -156,21 +168,17 @@ void ProfilesManager::editProfile(string name)
       break;
     }
   }
-
+  system("cls");
   switch (option)
   {
   case 0:
-    cout << "Rename\n";
-    // renameProfile(profileIndex);
+    renameProfile(profileIndex);
     break;
   case 1:
-    cout << "Delete\n";
-
-    // deleteProfile(profileIndex);
+    deleteProfile(profileIndex);
     break;
   case 2:
-    cout << "Add prof.\n";
-    // addPathToProfile(profileIndex, "");
+    addPathsToProfile(profileIndex);
     break;
   case 3:
     cout << "Delete some paths \n";

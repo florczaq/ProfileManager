@@ -67,6 +67,7 @@ void LocalStorage::saveChanges(vector<Profile> profiles)
   for (auto &p : j["Profiles"].items())
   {
     temp.push_back(json::object({{"name", profiles.at(i).getName()}, {"paths", profiles.at(i).getFilesList()}}));
+    cout << profiles.at(i).getFilesList().size() << endl;
     i++;
   }
   j["Profiles"] = temp;
