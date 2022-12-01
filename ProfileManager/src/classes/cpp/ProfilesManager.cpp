@@ -209,6 +209,14 @@ void ProfilesManager::interactiveMenu(map<int, string> mapa, int option)
   }
 }
 
+void ProfilesManager::addNewProfileMenu()
+{
+  string name;
+  cout << "Name: ";
+  cin >> name;
+  addNewProfile(name);
+}
+
 void ProfilesManager::manageProfiles()
 {
   int option = 0;
@@ -233,6 +241,7 @@ void ProfilesManager::manageProfiles()
 
     nameList.push_back(temp);
   }
+  nameList.push_back("+           +           +\n");
 
   while (z != 13)
   {
@@ -245,7 +254,11 @@ void ProfilesManager::manageProfiles()
     z = getch();
     move(z, option, nameList.size());
   }
-  this->editProfile(profiles[option].getName());
+  system("cls");
+  if (option == nameList.size() - 1)
+    addNewProfileMenu();
+  else
+    this->editProfile(profiles[option].getName());
 }
 
 void ProfilesManager::interactiveMainMenu()

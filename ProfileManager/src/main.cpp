@@ -17,6 +17,7 @@ private:
 	string newProfileName = "";
 	string deleteProfileName = "";
 	string editProfileName = "";
+	string pathsListProfileName = "";
 	int deleteProfileIndex = -1;
 
 public:
@@ -33,12 +34,13 @@ public:
 		app.add_option("-d,--delete", deleteProfileName, "Delete profile by name");
 		app.add_option("-i,--delete-id", deleteProfileIndex, "Delete profile by id.");
 		app.add_option("-e, --edit", editProfileName, "Open profile editor.");
-		
+		app.add_option("-t, --path-list", pathsListProfileName, "");
+
 		app.add_flag_callback(
 				"-m, --menu", [&]
 				{ ProfilesManager::interactiveMainMenu(); },
 				"Opens interactive menu.");
-				
+
 		app.add_flag_function(
 				"-l, --list", [&](int i)
 				{ ProfilesManager::writeAllProfiles(); },
@@ -58,6 +60,9 @@ public:
 
 		if (!editProfileName.empty())
 			ProfilesManager::editProfile(editProfileName);
+
+		if (!pathsListProfileName.empty())
+			ProfilesManager::writePaths(ProfilesManager::findProfile(pathsListProfileName));
 	}
 };
 
