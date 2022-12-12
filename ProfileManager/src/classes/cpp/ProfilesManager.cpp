@@ -187,6 +187,7 @@ void ProfilesManager::editProfile(string name)
   }
 }
 
+
 void ProfilesManager::interactiveMenu(vector<string> options, int option)
 {
   for (int i = 0; i < options.size(); i++)
@@ -241,7 +242,7 @@ void ProfilesManager::manageProfiles()
 
     nameList.push_back(temp);
   }
-  nameList.push_back("+           +           +\n");
+  nameList.push_back("+           +            +\n");
 
   while (z != 13)
   {
@@ -269,6 +270,7 @@ void ProfilesManager::interactiveMainMenu()
   menuOptions.push_back("+           Run          +\n");
   menuOptions.push_back("+      Manage profiles   +\n");
   menuOptions.push_back("+           List         +\n");
+  menuOptions.push_back("+           Exit         +\n");
 
   while (z != 13)
   {
@@ -291,6 +293,6 @@ void ProfilesManager::interactiveMainMenu()
     break;
   case 2:
     this->writeAllProfiles();
-    break;
+    break;    
   }
 }
