@@ -187,29 +187,19 @@ void ProfilesManager::editProfile(string name)
   }
 }
 
-
+// Getting user menu choice
 void ProfilesManager::interactiveMenu(vector<string> options, int option)
 {
   for (int i = 0; i < options.size(); i++)
   {
     if (i == option)
-      SetConsoleTextAttribute(hConsole, 128);
+      SetConsoleTextAttribute(handle, 128);
     cout << options.at(i);
-    SetConsoleTextAttribute(hConsole, 15);
+    SetConsoleTextAttribute(handle, 15);
   }
 }
 
-void ProfilesManager::interactiveMenu(map<int, string> mapa, int option)
-{
-  for (int i = 0; i < mapa.size(); i++)
-  {
-    if (i == option)
-      SetConsoleTextAttribute(hConsole, 128);
-    cout << mapa.at(i);
-    SetConsoleTextAttribute(hConsole, 15);
-  }
-}
-
+// Adding new profile and getting name from user input
 void ProfilesManager::addNewProfileMenu()
 {
   string name;
@@ -218,10 +208,11 @@ void ProfilesManager::addNewProfileMenu()
   addNewProfile(name);
 }
 
+// Profiles interactive list
 void ProfilesManager::manageProfiles()
 {
   int option = 0;
-  char z;
+  char keyPressed;
   vector<string> nameList;
   string temp = "";
   string pName = "";
@@ -244,7 +235,7 @@ void ProfilesManager::manageProfiles()
   }
   nameList.push_back("+           +            +\n");
 
-  while (z != 13)
+  while (keyPressed != 13)
   {
     system("cls");
     cout << "+------------------------+\n";
@@ -252,19 +243,23 @@ void ProfilesManager::manageProfiles()
     cout << "+------------------------+\n";
     this->interactiveMenu(nameList, option);
     cout << "+------------------------+\n";
-    z = getch();
-    move(z, option, nameList.size());
+    keyPressed = getch();
+    move(keyPressed, option, nameList.size());
   }
   system("cls");
   if (option == nameList.size() - 1)
+  {
     addNewProfileMenu();
+    exit(2);
+  }
   else
     this->editProfile(profiles[option].getName());
 }
 
+// Main menu
 void ProfilesManager::interactiveMainMenu()
 {
-  int option = 0;
+  int option;
   char z;
   vector<string> menuOptions;
   menuOptions.push_back("+           Run          +\n");
@@ -272,27 +267,38 @@ void ProfilesManager::interactiveMainMenu()
   menuOptions.push_back("+           List         +\n");
   menuOptions.push_back("+           Exit         +\n");
 
-  while (z != 13)
+  while (true)
   {
+    z = ' ';
+    option = 0;
+
+    while (z != 13)
+    {
+      system("cls");
+      cout << "+------------------------+\n";
+      cout << "+     Profile Manager    +\n";
+      cout << "+------------------------+\n";
+      interactiveMenu(menuOptions, option);
+      cout << "+------------------------+\n";
+      z = getch();
+      move(z, option, menuOptions.size());
+    }
+
     system("cls");
-    cout << "+------------------------+\n";
-    cout << "+     Profile Manager    +\n";
-    cout << "+------------------------+\n";
-    interactiveMenu(menuOptions, option);
-    cout << "+------------------------+\n";
-    z = getch();
-    move(z, option, menuOptions.size());
-  }
-  system("cls");
-  switch (option)
-  {
-  case 0:
-    break;
-  case 1:
-    this->manageProfiles();
-    break;
-  case 2:
-    this->writeAllProfiles();
-    break;    
+
+    switch (option)
+    {
+    case 0:
+      break;
+    case 1:
+      this->manageProfiles();
+      break;
+    case 2:
+      this->writeAllProfiles();
+      getch();
+      break;
+    default:
+      exit(1);
+    }
   }
 }

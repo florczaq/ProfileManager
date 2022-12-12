@@ -20,10 +20,9 @@ private:
   vector<Profile> profiles;
 
   void renameProfile(int index);
-  HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+  HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
   void interactiveMenu(vector<string> options, int currentOption);
-  void interactiveMenu(map<int,string> options, int currentOption);
   void manageProfiles();
   void addNewProfileMenu();
 public:
