@@ -1,4 +1,5 @@
 #include "../Profile.h"
+#include "Profile.h"
 
 Profile::Profile(string name)
 {
@@ -31,6 +32,19 @@ void Profile::addPath(string newFilePath)
 void Profile::rename(string newName)
 {
   this->name = newName;
+}
+
+void Profile::run()
+{
+  for (auto p : paths)
+  {
+    if (p.find("http") != string::npos)
+    {
+      system(("start " + p).c_str());
+    }
+    else
+      cout << p << endl;
+  }
 }
 
 void Profile::addPaths(vector<string> newPaths)

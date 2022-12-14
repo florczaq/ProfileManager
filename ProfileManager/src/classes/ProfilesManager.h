@@ -33,13 +33,14 @@ public:
   void deleteProfile(int index);
   void deleteProfile(string name);
   void editProfile(string name);
-  void editProfile(int index);
+  // void editProfile(int index);
   void interactiveMainMenu();
+  void addPathsToProfile(int profileIndex);
+  void writePaths(int index);
+  void runProfile(int index);
 
   vector<Profile> getProfiles();
 
   int findProfile(string name);
-
-  void addPathsToProfile(int profileIndex);
-  void writePaths(int index);
+  int interactiveProfilesList();
 };

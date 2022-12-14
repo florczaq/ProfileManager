@@ -1,11 +1,14 @@
 #include "../ProfilesManager.h"
 
+// Arrow keys codes
 namespace ARROW
 {
   const int UP = 72;
   const int DOWN = 80;
+  const int BACK = 8;
 }
 
+// User menu option choosing
 void move(char z, int &option, int vectorSize)
 {
   switch (z)
@@ -18,7 +21,50 @@ void move(char z, int &option, int vectorSize)
     if (option < vectorSize - 1)
       option++;
     break;
+  case ARROW::BACK:
+    exit(4);
+    break;
   }
+}
+
+int ProfilesManager::interactiveProfilesList()
+{
+  int option = 0;
+  char keyPressed;
+  vector<string> nameList;
+  string temp = "";
+  string pName = "";
+  int countSpaces = 0;
+
+  for (int i = 0; i < profiles.size(); i++)
+  {
+    pName = profiles.at(i).getName();
+    temp = "+";
+    countSpaces = 12 - pName.length() / 2;
+
+    for (int j = 0; j < countSpaces; j++)
+      temp += ' ';
+    temp += pName;
+    for (int j = 0; j < 24 - countSpaces - pName.length(); j++)
+      temp += ' ';
+    temp += "+\n";
+
+    nameList.push_back(temp);
+  }
+  nameList.push_back("+           +            +\n");
+
+  while (keyPressed != 13)
+  {
+    system("cls");
+    cout << "+------------------------+\n";
+    cout << "+      Choose profile    +\n";
+    cout << "+------------------------+\n";
+    interactiveMenu(nameList, option);
+    cout << "+------------------------+\n";
+    keyPressed = getch();
+    move(keyPressed, option, nameList.size());
+  }
+  return option;
 }
 
 ProfilesManager::ProfilesManager()
@@ -71,6 +117,7 @@ void ProfilesManager::deleteProfile(int index)
 
   if (answear[0] == 'y' || answear[0] == 'Y')
     LocalStorage::deleteProfile(index);
+  exit(3);
 }
 
 // Deletes profile by name
@@ -106,7 +153,7 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
   string input;
   int amount = 0;
 
-  cout << "How many paths: ";
+  cout << "How many: ";
   cin >> amount;
 
   system("cls");
@@ -128,6 +175,12 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
 void ProfilesManager::writePaths(int index)
 {
   profiles[index].writePaths();
+  getch();
+}
+
+void ProfilesManager::runProfile(int index)
+{
+  profiles[index].run();
 }
 
 // Open edition menu
@@ -147,9 +200,9 @@ void ProfilesManager::editProfile(string name)
 
   menuOptions.push_back("+          Rename        +\n");
   menuOptions.push_back("+          Delete        +\n");
-  menuOptions.push_back("+      Add more paths    +\n");
-  menuOptions.push_back("+    Delete some paths   +\n");
-  menuOptions.push_back("+    Show list of paths  +\n");
+  menuOptions.push_back("+     Add paths/url/cmd  +\n");
+  menuOptions.push_back("+   Delete paths/url/cmd +\n");
+  menuOptions.push_back("+    Show paths/url/cmd  +\n");
   menuOptions.push_back("+           Exit         +\n");
 
   while (int(z) != 13)
@@ -180,6 +233,7 @@ void ProfilesManager::editProfile(string name)
     break;
   case 3:
     cout << "Delete some paths \n";
+    getch();
     break;
   case 4:
     writePaths(profileIndex);
@@ -211,43 +265,10 @@ void ProfilesManager::addNewProfileMenu()
 // Profiles interactive list
 void ProfilesManager::manageProfiles()
 {
-  int option = 0;
-  char keyPressed;
-  vector<string> nameList;
-  string temp = "";
-  string pName = "";
-  int countSpaces = 0;
+  int option = this->interactiveProfilesList();
 
-  for (int i = 0; i < profiles.size(); i++)
-  {
-    pName = profiles.at(i).getName();
-    temp = "+";
-    countSpaces = 12 - pName.length() / 2;
-
-    for (int j = 0; j < countSpaces; j++)
-      temp += ' ';
-    temp += pName;
-    for (int j = 0; j < 24 - countSpaces - pName.length(); j++)
-      temp += ' ';
-    temp += "+\n";
-
-    nameList.push_back(temp);
-  }
-  nameList.push_back("+           +            +\n");
-
-  while (keyPressed != 13)
-  {
-    system("cls");
-    cout << "+------------------------+\n";
-    cout << "+      Choose profile    +\n";
-    cout << "+------------------------+\n";
-    this->interactiveMenu(nameList, option);
-    cout << "+------------------------+\n";
-    keyPressed = getch();
-    move(keyPressed, option, nameList.size());
-  }
   system("cls");
-  if (option == nameList.size() - 1)
+  if (option == profiles.size())
   {
     addNewProfileMenu();
     exit(2);
@@ -289,6 +310,7 @@ void ProfilesManager::interactiveMainMenu()
     switch (option)
     {
     case 0:
+      this->runProfile(this->interactiveProfilesList());
       break;
     case 1:
       this->manageProfiles();
