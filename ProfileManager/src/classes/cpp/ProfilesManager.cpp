@@ -6,12 +6,13 @@ namespace ARROW
   const int UP = 72;
   const int DOWN = 80;
   const int BACK = 8;
+  const int ENTER = 13;
 }
 
 // User menu option choosing
-void move(char z, int &option, int vectorSize)
+void move(char keyPressed, int &option, int vectorSize)
 {
-  switch (z)
+  switch (keyPressed)
   {
   case ARROW::UP:
     if (option > 0)
@@ -53,7 +54,7 @@ int ProfilesManager::interactiveProfilesList()
   }
   nameList.push_back("+           +            +\n");
 
-  while (keyPressed != 13)
+  while (keyPressed != ARROW::ENTER)
   {
     system("cls");
     cout << "+------------------------+\n";
@@ -111,13 +112,29 @@ void ProfilesManager::addProfile(string name)
 // Delete profile by index
 void ProfilesManager::deleteProfile(int index)
 {
-  string answear = "";
-  cout << "Are you sure you want to delete this profile (y/n) \n>> ";
-  cin >> answear;
+  int option = 0;
+  char keyPressed;
+  vector<string> options;
+  options.push_back("|        Yes        |\n");
+  options.push_back("|        No         |\n");
 
-  if (answear[0] == 'y' || answear[0] == 'Y')
+  while (keyPressed != ARROW::ENTER)
+  {
+    system("cls");
+    cout << "+-------------------+\n";
+    cout << "|   Are you sure?   |\n";
+    cout << "+-------------------+\n";
+    interactiveMenu(options, option);
+    cout << "+-------------------+\n";
+    keyPressed = getch();
+    move(keyPressed, option, options.size());
+  }
+
+  if (option == 0)
+  {
     LocalStorage::deleteProfile(index);
-  exit(3);
+    exit(3);
+  }
 }
 
 // Deletes profile by name
