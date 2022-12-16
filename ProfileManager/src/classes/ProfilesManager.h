@@ -19,28 +19,29 @@ class ProfilesManager : public LocalStorage
 private:
   vector<Profile> profiles;
 
-  void renameProfile(int index);
   HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
+  vector<Profile> getProfiles();
+
+  void addNewProfileMenu();
+  void addPathsToProfile(int profileIndex);
   void interactiveMenu(vector<string> options, int currentOption);
   void manageProfiles();
-  void addNewProfileMenu();
+  void renameProfile(int index);
+  void runProfile(int index);
+
+  int interactiveProfilesList(bool withAddOption);
+
 public:
   ProfilesManager();
 
-  void writeAllProfiles();
   void addProfile(string name);
   void deleteProfile(int index);
   void deleteProfile(string name);
   void editProfile(string name);
-  // void editProfile(int index);
   void interactiveMainMenu();
-  void addPathsToProfile(int profileIndex);
+  void writeAllProfiles();
   void writePaths(int index);
-  void runProfile(int index);
-
-  vector<Profile> getProfiles();
 
   int findProfile(string name);
-  int interactiveProfilesList();
 };

@@ -28,7 +28,8 @@ void move(char keyPressed, int &option, int vectorSize)
   }
 }
 
-int ProfilesManager::interactiveProfilesList()
+// Interactive list of current profiles. Returns index (int) of selected profile
+int ProfilesManager::interactiveProfilesList(bool withAddOption)
 {
   int option = 0;
   char keyPressed;
@@ -40,7 +41,7 @@ int ProfilesManager::interactiveProfilesList()
   for (int i = 0; i < profiles.size(); i++)
   {
     pName = profiles.at(i).getName();
-    temp = "+";
+    temp = "|";
     countSpaces = 12 - pName.length() / 2;
 
     for (int j = 0; j < countSpaces; j++)
@@ -48,11 +49,12 @@ int ProfilesManager::interactiveProfilesList()
     temp += pName;
     for (int j = 0; j < 24 - countSpaces - pName.length(); j++)
       temp += ' ';
-    temp += "+\n";
+    temp += "|\n";
 
     nameList.push_back(temp);
   }
-  nameList.push_back("+           +            +\n");
+  if (withAddOption)
+    nameList.push_back("+           +            +\n");
 
   while (keyPressed != ARROW::ENTER)
   {
@@ -68,6 +70,7 @@ int ProfilesManager::interactiveProfilesList()
   return option;
 }
 
+// Constructor reads profiles from memory
 ProfilesManager::ProfilesManager()
 {
   this->profiles = LocalStorage::getProifilesList();
@@ -170,6 +173,12 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
   string input;
   int amount = 0;
 
+  cout << "########################################################################\n";
+  cout << " Links must start with http or https [f.e. https:/www.example.com/]\n";
+  cout << " Command lines must start with '$' [f.e. $echo Hello]\n";
+  cout << " Programs paths must be absolute [f.e. C:/folder/example.exe]\n";
+  cout << "########################################################################\n\n";
+
   cout << "How many: ";
   cin >> amount;
 
@@ -195,9 +204,11 @@ void ProfilesManager::writePaths(int index)
   getch();
 }
 
+// Run profile's paths, links and commands
 void ProfilesManager::runProfile(int index)
 {
   profiles[index].run();
+  getch();
 }
 
 // Open edition menu
@@ -282,7 +293,7 @@ void ProfilesManager::addNewProfileMenu()
 // Profiles interactive list
 void ProfilesManager::manageProfiles()
 {
-  int option = this->interactiveProfilesList();
+  int option = this->interactiveProfilesList(true);
 
   system("cls");
   if (option == profiles.size())
@@ -327,7 +338,7 @@ void ProfilesManager::interactiveMainMenu()
     switch (option)
     {
     case 0:
-      this->runProfile(this->interactiveProfilesList());
+      this->runProfile(this->interactiveProfilesList(false));
       break;
     case 1:
       this->manageProfiles();

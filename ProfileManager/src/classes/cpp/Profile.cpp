@@ -24,10 +24,6 @@ vector<string> Profile::getFilesList()
   return paths;
 }
 
-void Profile::addPath(string newFilePath)
-{
-  this->paths.push_back(newFilePath);
-}
 
 void Profile::rename(string newName)
 {
@@ -42,8 +38,21 @@ void Profile::run()
     {
       system(("start " + p).c_str());
     }
+    else if (p[0] == '$')
+    {
+      string temp = "";
+      for (int i = 1; i < p.length(); i++)
+        temp += p[i];
+      system(temp.c_str());
+    }
+    else if (p.find(":/") != string::npos || p.find(":\\") != string::npos)
+    {
+      system(p.c_str());
+    }
     else
-      cout << p << endl;
+    {
+      cout << "Wrong syntax: \t" << p << endl;
+    }
   }
 }
 
