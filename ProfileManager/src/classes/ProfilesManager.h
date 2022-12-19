@@ -4,7 +4,7 @@
 #include <vector>
 #include <conio.h>
 #include <windows.h>
-#include <map>
+#include <string>
 
 #include "../libraries/CLI11.hpp"
 #include "../../data/Descriptions.hpp"
@@ -12,7 +12,8 @@
 #include "Profile.h"
 #include "LocalStorage.h"
 
-using std::cout, std::endl, std::vector, std::cin, std::map;
+
+using std::cout, std::endl, std::vector, std::cin, std::getline;
 
 class ProfilesManager : public LocalStorage
 {

@@ -174,9 +174,9 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
   int amount = 0;
 
   cout << "########################################################################\n";
-  cout << " Links must start with http or https [f.e. https:/www.example.com/]\n";
-  cout << " Command lines must start with '$' [f.e. $echo Hello]\n";
-  cout << " Programs paths must be absolute [f.e. C:/folder/example.exe]\n";
+  cout << "   Links must start with http or https [f.e. https:/www.example.com/]\n";
+  cout << "   Command lines must start with '$' [f.e. $echo Hello]\n";
+  cout << "   Programs paths must be absolute [f.e. C:/folder/example.exe]\n";
   cout << "########################################################################\n\n";
 
   cout << "How many: ";
@@ -188,7 +188,8 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
   for (int i = 1; i <= amount; i++)
   {
     cout << " [" << i << "]: ";
-    cin >> input;
+    cin.sync();
+    getline(cin, input);
     paths.push_back(input);
   }
 

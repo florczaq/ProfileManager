@@ -1,1 +1,1 @@
-{"Profiles":[{"name":"new","paths":["http:/example.com/"]},{"name":"profile","paths":["https:/www.google.com/","$echo #PR#","C:\\Users\\Mikolaj.DESKTOP-8J86JD0\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe"]}]}
+{"Profiles":[{"name":"new","paths":["https:/google.com/","$echo Hello World","C:\\Users\\Mikolaj.DESKTOP-8J86JD0\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe"]}]}
