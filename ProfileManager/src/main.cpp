@@ -18,6 +18,7 @@ private:
 	string deleteProfileName = "";
 	string editProfileName = "";
 	string pathsListProfileName = "";
+	string runProfileName = "";
 	int deleteProfileIndex = -1;
 
 public:
@@ -34,7 +35,8 @@ public:
 		app.add_option("-d,--delete", deleteProfileName, "Delete profile by name");
 		app.add_option("-i,--delete-id", deleteProfileIndex, "Delete profile by id.");
 		app.add_option("-e, --edit", editProfileName, "Open profile editor.");
-		app.add_option("-t, --path-list", pathsListProfileName, "");
+		app.add_option("-p, --path-list", pathsListProfileName, "Show list of paths, links and commands for selected profile");
+		app.add_option("-r, --run", runProfileName, "Run selected profile");
 
 		app.add_flag_callback(
 				"-m, --menu", [&]
@@ -63,6 +65,9 @@ public:
 
 		if (!pathsListProfileName.empty())
 			ProfilesManager::writePaths(ProfilesManager::findProfile(pathsListProfileName));
+			
+		if (!runProfileName.empty())
+			ProfilesManager::runProfile(findProfile(runProfileName));
 	}
 };
 
@@ -71,4 +76,5 @@ int main(int argc, char const *argv[])
 	Application application;
 	CLI11_PARSE(application.app, argc, argv);
 	application.run();
+	cout << endl;
 }

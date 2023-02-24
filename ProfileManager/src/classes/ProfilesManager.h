@@ -12,7 +12,6 @@
 #include "Profile.h"
 #include "LocalStorage.h"
 
-
 using std::cout, std::endl, std::vector, std::cin, std::getline;
 
 class ProfilesManager : public LocalStorage
@@ -29,9 +28,10 @@ private:
   void interactiveMenu(vector<string> options, int currentOption);
   void manageProfiles();
   void renameProfile(int index);
-  void runProfile(int index);
-
+  void deletePathsMenu(int profileIndex);
   int interactiveProfilesList(bool withAddOption);
+  bool confirmationMenu();
+  void selectionMenu(vector<string> options, vector<bool> selected, int currentOption);
 
 public:
   ProfilesManager();
@@ -43,6 +43,7 @@ public:
   void interactiveMainMenu();
   void writeAllProfiles();
   void writePaths(int index);
+  void runProfile(int index);
 
   int findProfile(string name);
 };

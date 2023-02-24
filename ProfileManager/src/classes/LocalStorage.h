@@ -7,7 +7,12 @@
 
 #include "Profile.h"
 
-using std::string, std::ifstream, std::ofstream, std::vector, std::to_string;
+using std::string,
+    std::ifstream,
+    std::ofstream,
+    std::vector,
+    std::to_string;
+
 using json = nlohmann::json;
 
 class LocalStorage
@@ -18,7 +23,7 @@ private:
   json readData(string key);
   void saveData();
 
-protected: 
+protected:
   void addNewProfile(string newProfileName);
   void deleteProfile(int index);
   void saveChanges(vector<Profile> newProfilesList);
@@ -27,5 +32,4 @@ public:
   LocalStorage();
 
   vector<Profile> getProifilesList();
-
 };

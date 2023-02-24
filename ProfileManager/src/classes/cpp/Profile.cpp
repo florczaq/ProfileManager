@@ -19,7 +19,7 @@ string Profile::getName()
   return name;
 }
 
-vector<string> Profile::getFilesList()
+vector<string> Profile::getPaths()
 {
   return paths;
 }
@@ -69,4 +69,12 @@ void Profile::writePaths()
   {
     cout << "  " << i + 1 << ": " << paths[i] << endl;
   }
+}
+
+void Profile::deletePats(vector<bool> selectedPaths)
+{
+  for (int i = 0; i < paths.size(); i++)
+    if(selectedPaths[i])
+      paths[i] = "";
+  paths.erase(std::remove(paths.begin(), paths.end(), ""), paths.end());
 }

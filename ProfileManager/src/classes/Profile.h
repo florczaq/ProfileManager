@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <windows.h>
 #include "../libraries/CLI11.hpp"
 
@@ -17,12 +18,13 @@ public:
   Profile(string name);
   Profile(string name, vector<string> paths);
 
-  vector<string> getFilesList();
 
   string getName();
+  vector<string> getPaths();
 
   void run();
   void rename(string newName);
   void addPaths(vector<string> newPaths);
   void writePaths();
+  void deletePats(vector<bool> selectedPaths);
 };

@@ -41,7 +41,7 @@ int ProfilesManager::interactiveProfilesList(bool withAddOption)
   for (int i = 0; i < profiles.size(); i++)
   {
     pName = profiles.at(i).getName();
-    temp = "|";
+    temp = "+";
     countSpaces = 12 - pName.length() / 2;
 
     for (int j = 0; j < countSpaces; j++)
@@ -49,10 +49,11 @@ int ProfilesManager::interactiveProfilesList(bool withAddOption)
     temp += pName;
     for (int j = 0; j < 24 - countSpaces - pName.length(); j++)
       temp += ' ';
-    temp += "|\n";
+    temp += "+\n";
 
     nameList.push_back(temp);
   }
+
   if (withAddOption)
     nameList.push_back("+           +            +\n");
 
@@ -112,14 +113,13 @@ void ProfilesManager::addProfile(string name)
   LocalStorage::addNewProfile(name);
 }
 
-// Delete profile by index
-void ProfilesManager::deleteProfile(int index)
+bool ProfilesManager::confirmationMenu()
 {
   int option = 0;
   char keyPressed;
   vector<string> options;
-  options.push_back("|        Yes        |\n");
-  options.push_back("|        No         |\n");
+  options.push_back("+        Yes        +\n");
+  options.push_back("+        No         +\n");
 
   while (keyPressed != ARROW::ENTER)
   {
@@ -133,7 +133,13 @@ void ProfilesManager::deleteProfile(int index)
     move(keyPressed, option, options.size());
   }
 
-  if (option == 0)
+  return option == 0;
+}
+
+// Delete profile by index
+void ProfilesManager::deleteProfile(int index)
+{
+  if (confirmationMenu())
   {
     LocalStorage::deleteProfile(index);
     exit(3);
@@ -202,12 +208,17 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
 void ProfilesManager::writePaths(int index)
 {
   profiles[index].writePaths();
-  getch();
+  // getch();
 }
 
 // Run profile's paths, links and commands
 void ProfilesManager::runProfile(int index)
 {
+  if (index == -1)
+  {
+    cout << "No profile found. " << endl;
+    return;
+  }
   profiles[index].run();
   getch();
 }
@@ -261,11 +272,11 @@ void ProfilesManager::editProfile(string name)
     addPathsToProfile(profileIndex);
     break;
   case 3:
-    cout << "Delete some paths \n";
-    getch();
+    deletePathsMenu(profileIndex);
     break;
   case 4:
     writePaths(profileIndex);
+    getch();
     break;
   }
 }
@@ -352,4 +363,68 @@ void ProfilesManager::interactiveMainMenu()
       exit(1);
     }
   }
+}
+
+void ProfilesManager::selectionMenu(vector<string> options, vector<bool> selected, int currentOption)
+{
+  for (int i = 0; i < options.size(); i++)
+  {
+
+    if (i == currentOption)
+      SetConsoleTextAttribute(handle, 128);
+
+    if (selected[i])
+      SetConsoleTextAttribute(handle, 12);
+
+    if (i == currentOption && selected[i])
+      SetConsoleTextAttribute(handle, 140);
+
+    cout << options.at(i);
+    SetConsoleTextAttribute(handle, 15);
+  }
+}
+
+void ProfilesManager::deletePathsMenu(int profileIndex)
+{
+  vector<string> options;
+  int currentOption = 0;
+  char keyPressed;
+  vector<bool> selected;
+
+  for (auto p : profiles.at(profileIndex).getPaths())
+    options.push_back("  " + p + "\n");
+  options.push_back("#         Confirm        #\n");
+  options.push_back("#         Cancel         #\n");
+
+  selected.resize(options.size(), false);
+
+  while (true)
+  {
+    system("cls");
+    cout << "##########################\n";
+    cout << "       Choose paths       \n";
+    cout << "         to delete        \n";
+    cout << "##########################\n\n";
+    selectionMenu(options, selected, currentOption);
+    cout << "##########################\n";
+
+    keyPressed = getch();
+    move(keyPressed, currentOption, options.size());
+
+    if (keyPressed == ARROW::ENTER)
+      if (currentOption == options.size() - 2)
+      {
+        if (confirmationMenu())
+        {
+          profiles.at(profileIndex).deletePats(selected);
+          LocalStorage::saveChanges(profiles);
+        }
+        exit(1);
+      }
+      else if (currentOption == options.size() - 1)
+        exit(1);
+      else
+        selected[currentOption] = !selected[currentOption];
+  }
+  getch();
 }
