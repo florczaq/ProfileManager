@@ -4,6 +4,10 @@
 Profile Manager is a command line interface.  
 Each profile contains list of user's urls, CMD commands and .exe files paths that can be run.  
 > Windows only.
+
+### Instalation
+  Download the folder from this repository.
+  
 ### Usage
 `Backspace` hard quits the application  
 Add profileManager folder to enviroment variables.   
