@@ -1,10 +1,11 @@
-# Profile Manager CLI
+## Profile Manager CLI
 
-## About
+### About
 Profile Manager is a command line interface.  
-Each profile contains list of user's urls, CMD commands and .exe files paths that can be run.
+Each profile contains list of user's urls, CMD commands and .exe files paths that can be run.  
 
-## Usage
+### Usage
+[Backspace] hard quits the application  
 Add profileManager folder to enviroment variables.   
 Type [pm] and: 
 - [--help] - list of options  
