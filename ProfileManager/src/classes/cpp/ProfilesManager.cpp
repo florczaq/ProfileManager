@@ -179,16 +179,14 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
   string input;
   int amount = 0;
 
-  cout << "########################################################################\n";
-  cout << "   Links must start with http or https [f.e. https:/www.example.com/]\n";
-  cout << "   Command lines must start with '$' [f.e. $echo Hello]\n";
-  cout << "   Programs paths must be absolute [f.e. C:/folder/example.exe]\n";
-  cout << "########################################################################\n\n";
+  string info = "########################################################################\n   Links must start with http or https [f.e. https:/www.example.com/]\n   Command lines must start with '$' [f.e. $echo Hello]\n   Programs paths must be absolute [f.e. C:/folder/example.exe]\n########################################################################\n\n";
 
+  cout << info;
   cout << "How many: ";
   cin >> amount;
 
   system("cls");
+  cout << info;
 
   cout << "New paths: \n";
   for (int i = 1; i <= amount; i++)
@@ -208,7 +206,6 @@ void ProfilesManager::addPathsToProfile(int profileIndex)
 void ProfilesManager::writePaths(int index)
 {
   profiles[index].writePaths();
-  // getch();
 }
 
 // Run profile's paths, links and commands
@@ -392,8 +389,9 @@ void ProfilesManager::deletePathsMenu(int profileIndex)
   vector<bool> selected;
 
   for (auto p : profiles.at(profileIndex).getPaths())
-    options.push_back("  " + p + "\n");
-  options.push_back("#         Confirm        #\n");
+    options.push_back("#  " + p + "\n");
+
+  options.push_back("\n#         Confirm        #\n");
   options.push_back("#         Cancel         #\n");
 
   selected.resize(options.size(), false);

@@ -18,7 +18,7 @@ using json = nlohmann::json;
 class LocalStorage
 {
 private:
-  const string filepath = "data/data.json";
+  const string filepath = "C:\\ProfileManagerCLI\\data.json";
   json j;
   json readData(string key);
   void saveData();

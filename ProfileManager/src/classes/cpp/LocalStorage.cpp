@@ -6,12 +6,14 @@ LocalStorage::LocalStorage()
   if (!file.good())
   {
     std::cout << "File: data.json not found at " << filepath << std::endl;
+    std::cout << "Rerun the application. \nIf problem repeats reinstall the application." << std::endl;
     file.close();
+
     ofstream file(this->filepath);
     j["Profiles"] = json::array();
     file << j;
     file.close();
-    return;
+    exit(1);
   }
   j = json::parse(file);
   file.close();
