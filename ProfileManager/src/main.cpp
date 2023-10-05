@@ -6,6 +6,8 @@
 // #include "../data/Descriptions.hpp"
 #include "classes/Profile.h"
 #include "classes/ProfilesManager.h"
+#pragma comment(lib, "shell32.lib")
+static HWND hBut;
 
 using std::cout, std::endl, std::vector;
 

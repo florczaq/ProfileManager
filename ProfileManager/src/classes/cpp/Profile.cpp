@@ -31,27 +31,27 @@ void Profile::rename(string newName)
 
 void Profile::run()
 {
-  for (auto p : paths)
+  system("cls");
+  for (auto path : paths)
   {
-    if (p.find("http") != string::npos)
+    if (path.find("http") != string::npos)
     {
-      system(("start " + p).c_str());
+      system(("start " + path).c_str());
     }
-    else if (p[0] == '$')
+    else if (path[0] == '$')
     {
-      string temp = "start '";
-      for (int i = 1; i < p.length(); i++)
-        temp += p[i];
-      temp += "'";
+      string temp = "";
+      for (int i = 1; i < path.length(); i++)
+        temp += path[i];
       system(temp.c_str());
     }
-    else if (p.find(":/") != string::npos || p.find(":\\") != string::npos)
+    else if (path.find(":/") != string::npos || path.find(":\\") != string::npos)
     {
-      system(p.c_str());
+      ShellExecuteA(GetDesktopWindow(), ("open"), LPCSTR(path.c_str()), NULL, NULL, SW_SHOWNORMAL);
     }
     else
     {
-      cout << "Wrong syntax: \t" << p << endl;
+      cout << "Wrong syntax: \t" << path << endl;
     }
   }
 }
