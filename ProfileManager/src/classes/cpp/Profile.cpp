@@ -24,7 +24,6 @@ vector<string> Profile::getPaths()
   return paths;
 }
 
-
 void Profile::rename(string newName)
 {
   this->name = newName;
@@ -40,9 +39,10 @@ void Profile::run()
     }
     else if (p[0] == '$')
     {
-      string temp = "";
+      string temp = "start '";
       for (int i = 1; i < p.length(); i++)
         temp += p[i];
+      temp += "'";
       system(temp.c_str());
     }
     else if (p.find(":/") != string::npos || p.find(":\\") != string::npos)
@@ -74,7 +74,7 @@ void Profile::writePaths()
 void Profile::deletePats(vector<bool> selectedPaths)
 {
   for (int i = 0; i < paths.size(); i++)
-    if(selectedPaths[i])
+    if (selectedPaths[i])
       paths[i] = "";
   paths.erase(std::remove(paths.begin(), paths.end(), ""), paths.end());
 }
