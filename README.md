@@ -8,8 +8,10 @@ Each profile contains list of user's urls, CMD commands and .exe files paths tha
   Download the folder from this repository.
   
 ### Usage
+Place ProfileManagerCLI at C:/  ([C:/ProfileManagerCLI])
+Add ProfileManagerCLI folder directory to Environment Variables > Path .
+
 `Backspace` hard quits the application  
-Add profileManager folder to enviroment variables.   
 Type `pm` and: 
 - `--help` - list of options  
 - `-a/--add + new profile name` - Adds new profile
