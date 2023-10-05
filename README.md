@@ -4,7 +4,6 @@
 Profile Manager is a command line interface.  
 Each profile contains list of user's urls, CMD commands and .exe files paths that can be run at the same time.  
 > Windows only.
-> For VisualStudio Code use `code` as command, and not as path to `code.exe`
 ### Instalation
   Download the folder from this repository.
   
